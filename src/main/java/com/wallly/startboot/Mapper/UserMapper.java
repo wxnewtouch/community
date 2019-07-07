@@ -1,4 +1,4 @@
-package com.wallly.startboot.UserMapper;
+package com.wallly.startboot.Mapper;
 
 import com.wallly.startboot.Model.User;
 import org.apache.ibatis.annotations.Insert;
@@ -11,6 +11,6 @@ public interface UserMapper {
     @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);
 
-    @Insert("insert into user (account_id,name,token,gmt_create,gmt_modified) values (#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into user (account_id,name,token,gmt_create,gmt_modified,bio) values (#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified},#{bio})")
     void insert(User user);
 }

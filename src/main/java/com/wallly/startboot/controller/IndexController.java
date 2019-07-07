@@ -1,7 +1,7 @@
 package com.wallly.startboot.controller;
 
 import com.wallly.startboot.Model.User;
-import com.wallly.startboot.UserMapper.UserMapper;
+import com.wallly.startboot.Mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

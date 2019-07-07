@@ -1,11 +1,10 @@
 package com.wallly.startboot.controller;
 
 import com.wallly.startboot.Model.User;
-import com.wallly.startboot.UserMapper.UserMapper;
+import com.wallly.startboot.Mapper.UserMapper;
 import com.wallly.startboot.dto.AccessTokenDTO;
 import com.wallly.startboot.dto.GithubUser;
 import com.wallly.startboot.provider.GithubProvider;
-import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -34,8 +32,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletResponse response,
-                           HttpServletRequest request) {
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setClient_id(clientId);
@@ -53,9 +50,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setBio(githubUser.getBio());
             userMapper.insert(user);
             response.addCookie(new Cookie("token",token));
-            request.getSession().setAttribute("githubUser",githubUser);
             return "redirect:/";
         }else{
 //            登录失败，重新登录
