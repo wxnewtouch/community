@@ -5,9 +5,14 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface UserMapper {
+    @Select("select * from user where account_id = #{accountId}")
+    User findById(@Param("accountId") String accountId);
+
     @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);
 
