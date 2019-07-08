@@ -68,7 +68,7 @@ public class PublishController {
         question.setGmtModified(question.getGmtCreate());
         question.setCreator(user.getAccountId());
         questionMapper.create(question);
-        return "index";
+        return "publish";
     }
 
     @GetMapping("/publish")
