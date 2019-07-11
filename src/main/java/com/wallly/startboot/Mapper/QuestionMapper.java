@@ -12,6 +12,9 @@ import java.util.List;
 @Mapper
 @Component
 public interface QuestionMapper {
+    @Select("select count(1) from question where creator = #{accountId}")
+    Integer countByAccountId(@Param(value="accountId") String accountId);
+
     @Insert("insert into question (title,description,gmt_create,gmt_modified,creator,tag) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void create(Question question);
 
@@ -20,4 +23,6 @@ public interface QuestionMapper {
 
     @Select("select count(1) from question")
     Integer count();
+    @Select("select * from question where creator = #{accountId} limit #{offset},#{size}")
+    List<Question> listProfile(@Param(value = "accountId") String accountId, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
 }
