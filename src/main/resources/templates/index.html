@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>主页</title>
+    <title>码匠社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,12 +19,16 @@
             <hr/>
             <div class="media" th:each="question : ${pagination.questionDTOS}">
                 <div class="media-left">
-                    <a href="#">
+                    <a th:href="@{'/question/'+${question.id}}">
                         <img class="media-object" th:src="${question.user.getAvatarUrl()}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><span th:text="${question.getTitle()}"></span></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/'+${question.id}}">
+                            <span th:text="${question.getTitle()}"></span>
+                        </a>
+                    </h4>
                     <span th:text="${question.getDescription()}"></span>
                     <span class="text-desc"><span th:text="${question.getCommentCount()}"></span>个回复 . <span
                             th:text="${question.getViewCount()}"></span>  个浏览 .<span

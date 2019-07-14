@@ -23,15 +23,26 @@ public class QuestionService {
 
     public PaginationDTO findByAll(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-
-        Integer totalCount = questionMapper.count();
-        paginationDTO.setpagination(totalCount,size,page);
-        if (page < 1){
-            page = 1;
+        paginationDTO.setTotalCount(questionMapper.count());
+        /**
+         * 现在totalPage已经算出来了
+         */
+        if (paginationDTO.getTotalCount() % size == 0){
+            paginationDTO.setTotalPage(paginationDTO.getTotalCount() / size);
+        }else {
+            paginationDTO.setTotalPage(paginationDTO.getTotalCount() / size + 1);
         }
+        /**
+         * 这一步确定一下page的取值
+         */
         if (page > paginationDTO.getTotalPage()){
             page = paginationDTO.getTotalPage();
         }
+        if (page <= 1){
+            page = 1;
+        }
+        paginationDTO.setpagination(size,page);
+
         Integer offset = size * (page - 1);
         List<Question> questionList = questionMapper.list(offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
@@ -47,19 +58,40 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(String accountId, Integer page, Integer size) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+    public QuestionDTO findById(Integer id) {
+        Question question = questionMapper.findById(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        User user = userMapper.findById(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
 
-        Integer totalCount = questionMapper.countByAccountId(accountId);
-        paginationDTO.setpagination(totalCount,size,page);
-        if (page < 1){
-            page = 1;
+    public PaginationDTO list(Integer id, Integer page, Integer size) {
+        PaginationDTO paginationDTO = new PaginationDTO();
+        paginationDTO.setTotalCount(questionMapper.count());
+        /**
+         * 现在totalPage已经算出来了
+         */
+        if (paginationDTO.getTotalCount() % size == 0){
+            paginationDTO.setTotalPage(paginationDTO.getTotalCount() / size);
+        }else {
+            paginationDTO.setTotalPage(paginationDTO.getTotalCount() / size + 1);
         }
+        /**
+         * 这一步确定一下page的取值
+         * 验证同一个数据的时候，要从范围较大的开始验证，
+         * 然后在验证较小的数据，这样完成之后是有保证的。
+         */
         if (page > paginationDTO.getTotalPage()){
             page = paginationDTO.getTotalPage();
         }
+        if (page <= 1){
+            page = 1;
+        }
+        paginationDTO.setpagination(size,page);
         Integer offset = size * (page - 1);
-        List<Question> questionList = questionMapper.listProfile(accountId,offset, size);
+        List<Question> questionList = questionMapper.listProfile(id,offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
 
         for (Question question : questionList) {

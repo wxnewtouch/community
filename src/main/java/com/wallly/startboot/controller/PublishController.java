@@ -39,7 +39,7 @@ public class PublishController {
             return "publish";
         }
         User user = (User)request.getSession().getAttribute("githubUser");
-        if (user == null  && user.getAccountId() != null){
+        if (user == null  && user.getId()!= null){
             model.addAttribute("error","用户信息不能为空");
             return "publish";
         }
@@ -49,7 +49,7 @@ public class PublishController {
         question.setTitle(title);
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
-        question.setCreator(user.getAccountId());
+        question.setCreator(user.getId().toString());
         questionMapper.create(question);
         return "publish";
     }
