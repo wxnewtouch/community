@@ -21,6 +21,20 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    public void createOrUpdate(Question question) {
+        if (question.getId() == null){
+            //插入
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else{
+            //更新
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+
+        }
+    }
+
     public PaginationDTO findByAll(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         paginationDTO.setTotalCount(questionMapper.count());
@@ -69,7 +83,7 @@ public class QuestionService {
 
     public PaginationDTO list(Integer id, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        paginationDTO.setTotalCount(questionMapper.count());
+        paginationDTO.setTotalCount(questionMapper.countByAccountId(id));
         /**
          * 现在totalPage已经算出来了
          */
