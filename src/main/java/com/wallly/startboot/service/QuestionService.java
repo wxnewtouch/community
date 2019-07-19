@@ -6,6 +6,9 @@ import com.wallly.startboot.Model.Question;
 import com.wallly.startboot.Model.User;
 import com.wallly.startboot.dto.PaginationDTO;
 import com.wallly.startboot.dto.QuestionDTO;
+import com.wallly.startboot.exception.CustomizeErrorCode;
+import com.wallly.startboot.exception.CustomizeException;
+import com.wallly.startboot.exception.ICustomizeErrorCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +77,9 @@ public class QuestionService {
 
     public QuestionDTO findById(Integer id) {
         Question question = questionMapper.findById(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.findById(question.getCreator());
