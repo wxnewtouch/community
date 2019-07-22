@@ -87,6 +87,11 @@ public class QuestionService {
         return questionDTO;
     }
 
+    public void incView(Integer id) {
+        Question oldQuestion = questionMapper.findById(id);
+        questionMapper.updateByExampleSelective(oldQuestion);
+    }
+
     public PaginationDTO list(Integer id, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         paginationDTO.setTotalCount(questionMapper.countByAccountId(id));
