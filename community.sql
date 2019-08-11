@@ -17,7 +17,7 @@ create table comment
   comment '点赞数',
   content      varchar(1024)      null
   comment '评论内容'
-);
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 -- auto-generated definition
 create table question
 (
@@ -32,7 +32,7 @@ create table question
   view_count    int default '0' null,
   like_count    int default '0' null,
   tag           varchar(256)    null
-);
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 -- auto-generated definition
 create table user
 (
@@ -45,4 +45,4 @@ create table user
   gmt_modified bigint(255)  null,
   bio          varchar(255) null,
   avatar_url   varchar(100) null
-);
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
