@@ -32,4 +32,7 @@ public interface QuestionMapper {
 
     @Update("update question set view_count = #{viewCount} + 1 where id = #{id}")
     void updateByExampleSelective(Question question);
+
+    @Update("update question set comment_count = #{commentCount} + 1 where id = #{id}")
+    void updateCommentCount(Question question);
 }
