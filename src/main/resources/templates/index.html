@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var closeFlag = window.localStorage.getItem("closeFlag");
+        if (closeFlag == "YES") {
+            window.localStorage.removeItem("closeFlag");
+            window.close();
+        }
+    }
+</script>
 <body>
 <div th:insert="~{navgation :: nav}"></div>
 <div class="container-fluid main">
@@ -47,7 +56,7 @@
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
-                    <li  th:each="pages : ${pagination.pages}" th:class="${pagination.page  == pages } ? 'active':'' ">
+                    <li th:each="pages : ${pagination.pages}" th:class="${pagination.page  == pages } ? 'active':'' ">
                         <a th:href="@{/(page=${pages})}" th:text="${pages}"></a>
                     </li>
                     <li th:if="${pagination.getShowNext()}">

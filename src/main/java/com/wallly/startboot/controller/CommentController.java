@@ -38,8 +38,6 @@ public class CommentController {
         comment.setGmtModified(comment.getGmtCreate());
         comment.setCommentator(1L);
         commentService.insert(comment);
-        Map<Object, Object> objectHashMap = new HashMap<>();
-        objectHashMap.put("message","成功");
         return ResultDTO.okOf();
     }
 }

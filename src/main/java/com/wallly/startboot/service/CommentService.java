@@ -9,6 +9,7 @@ import com.wallly.startboot.exception.CustomizeErrorCode;
 import com.wallly.startboot.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -18,12 +19,14 @@ public class CommentService {
     @Autowired
     private QuestionMapper questionMapper;
 
+    @Transactional
     public void insert(Comment comment) {
         //判断回复内容有没有
         if (comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
-        if (comment.getType() == null || CommentTypeEnum.isExits(comment.getType())){
+        //判断回复类型
+        if (comment.getType() == null || !CommentTypeEnum.isExits(comment.getType())){
             throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
         }
         if (comment.getType() == CommentTypeEnum.Comment.getType()){

@@ -29,3 +29,12 @@ body{
 .jumbotron{
     margin: 45px;
 }
+.comment{
+    margin: 10px 0;
+}
+.media-body{
+    padding: 7px;
+}
+.btn-comment{
+    float: right;
+}
