@@ -38,3 +38,17 @@ body{
 .btn-comment{
     float: right;
 }
+.margin_setting{
+    margin-top: 5px;
+}
+.menu .icon{
+    padding: 0 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.menu{
+    color:#999;
+}
+.menu .icon:hover{
+    color: #499ef3;
+}
