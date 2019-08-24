@@ -2,6 +2,10 @@ function post() {
     var questionId = $("#questionId").val();
     // console.log(questionId);
     var comment = $("#comment-text").val();
+    if (!comment){
+        alert("评论不能为空");
+        return;
+    }
     // console.log(comment);
     // console.log(111);
     $.ajax({
@@ -16,6 +20,7 @@ function post() {
         success:function (response) {
             // console.log(response);
             if (response.code == 200){
+                window.location.reload();
                 $("#comment_section").hide();
             }else{
                 if (response.code == 2003){

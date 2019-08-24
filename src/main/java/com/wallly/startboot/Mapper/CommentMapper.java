@@ -4,8 +4,9 @@ import com.wallly.startboot.Model.Comment;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
 @Component
@@ -15,4 +16,7 @@ public interface CommentMapper {
 
     @Select("select * from comment where id = #{id}")
     Comment selectById(Integer id);
+
+    @Select("select * from comment where parent_id = #{id} and type = 1 order by gmt_create desc")
+    List<Comment> listByQuestionId(Integer id);
 }

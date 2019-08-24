@@ -52,3 +52,7 @@ body{
 .menu .icon:hover{
     color: #499ef3;
 }
+.comment-pad{
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}

@@ -35,24 +35,26 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin_setting">
             <h4><span th:text="${question.commentCount}"></span> 个回复</h4>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin_setting">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--/*@thymesVar id="comments" type="java"*/-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-pad" th:each="comments:${comment}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-circle" th:src="${question.user.getAvatarUrl()}">
+                        <img class="media-object img-circle" th:src="${comments.user.getAvatarUrl()}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <span th:text="${question.user.name}"></span>
-                    <div>我是回复内容</div>
+                    <!--/*@thymesVar id="user" type="java"*/-->
+                    <span th:text="${comments.user.name}"></span>
+                    <div th:text="${comments.content}"></div>
                     <div class="menu">
                         <span class="glyphicon glyphicon-thumbs-up icon"></span>
                         <span class="glyphicon glyphicon-comment icon"></span>
                         <span class="pull-right"
-                              th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd')}"></span>
+                              th:text="${#dates.format(comments.getGmtCreate(),'yyyy-MM-dd')}"></span>
                     </div>
                 </div>
             </div>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin_setting">
+<!--            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin_setting">margin_setting-->
             <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="media-left">
                     <a href="#">
