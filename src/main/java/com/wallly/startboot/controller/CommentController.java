@@ -24,7 +24,8 @@ public class CommentController {
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentCreateDto, HttpServletRequest request){
-        if ((User)request.getSession().getAttribute("githubUser") == null){
+        User user = (User)request.getSession().getAttribute("githubUser");
+        if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
         Comment comment = new Comment();
@@ -33,7 +34,8 @@ public class CommentController {
         comment.setType(commentCreateDto.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
-        comment.setCommentator(1);
+        //这里有问题，这里的值获取到的永远是1，所以永远不对。
+        comment.setCommentator(user.getId());
         commentService.insert(comment);
         return ResultDTO.okOf();
     }

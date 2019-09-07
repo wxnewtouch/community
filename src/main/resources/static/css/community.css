@@ -46,6 +46,15 @@ body{
     font-size: 15px;
     cursor: pointer;
 }
+.menu .active{
+    color:#499ef3;
+}
+.border-set{
+    border: 1px solid #eee;
+    padding-top: 14px;
+    margin-top: 15px;
+    border-radius: 16px;
+}
 .menu{
     color:#999;
 }
@@ -55,4 +64,7 @@ body{
 .comment-pad{
     border-bottom: 1px solid #eee;
     margin-bottom: 10px;
+}
+.btn-comment{
+    margin: 15px 0px;
 }
