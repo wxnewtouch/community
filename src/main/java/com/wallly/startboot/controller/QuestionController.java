@@ -2,6 +2,7 @@ package com.wallly.startboot.controller;
 
 import com.wallly.startboot.dto.CommentDTO;
 import com.wallly.startboot.dto.QuestionDTO;
+import com.wallly.startboot.enums.CommentTypeEnum;
 import com.wallly.startboot.service.CommentService;
 import com.wallly.startboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class QuestionController {
     public String question(@PathVariable(value = "id")Integer id,
                            Model model){
         QuestionDTO questionDTO = questionService.findById(id);
-        List<CommentDTO> list = commentService.listByQuestionId(id);
+        Integer type = CommentTypeEnum.Question.getType();
+        List<CommentDTO> list = commentService.listByTargetId(id, type);
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comment",list);

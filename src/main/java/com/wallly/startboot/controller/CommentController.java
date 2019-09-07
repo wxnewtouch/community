@@ -3,17 +3,17 @@ package com.wallly.startboot.controller;
 import com.wallly.startboot.Model.Comment;
 import com.wallly.startboot.Model.User;
 import com.wallly.startboot.dto.CommentCreateDTO;
+import com.wallly.startboot.dto.CommentDTO;
 import com.wallly.startboot.dto.ResultDTO;
+import com.wallly.startboot.enums.CommentTypeEnum;
 import com.wallly.startboot.exception.CustomizeErrorCode;
 import com.wallly.startboot.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -38,5 +38,11 @@ public class CommentController {
         comment.setCommentator(user.getId());
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Integer id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.Comment.getType());
+        return ResultDTO.okOf(commentDTOS);
     }
 }
