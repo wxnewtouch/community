@@ -9,12 +9,15 @@ import com.wallly.startboot.dto.QuestionDTO;
 import com.wallly.startboot.exception.CustomizeErrorCode;
 import com.wallly.startboot.exception.CustomizeException;
 import com.wallly.startboot.exception.ICustomizeErrorCode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -128,5 +131,23 @@ public class QuestionService {
         }
         paginationDTO.setQuestionDTOS(questionDTOS);
         return paginationDTO;
+    }
+
+    public List<QuestionDTO> queryByTag(QuestionDTO queryTag) {
+        if (StringUtils.isBlank(queryTag.getTag())){
+            return new ArrayList<>();
+        }
+        String[] split = StringUtils.split(queryTag.getTag(), ",");
+        String tag = Arrays.stream(split).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(queryTag.getId());
+        question.setTag(tag);
+        List<Question> questionList = questionMapper.queryByTag(question);
+        List<QuestionDTO> questionDTOS = questionList.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q, questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
     }
 }

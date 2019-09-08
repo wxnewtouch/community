@@ -55,6 +55,9 @@ body{
     margin-top: 15px;
     border-radius: 16px;
 }
+.tag-distance{
+    margin-right: 10px;
+}
 .menu{
     color:#999;
 }

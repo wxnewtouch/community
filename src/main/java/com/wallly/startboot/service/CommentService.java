@@ -52,6 +52,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加问题的回复数功能
+            Comment contentCount = new Comment();
+            contentCount.setId(comment.getParentId());
+            contentCount.setContentCount(1);
+            commentMapper.incContentCount(contentCount);
         }else {
             //问题的回复
             Question question = questionMapper.findById(comment.getParentId());

@@ -28,8 +28,10 @@ public class QuestionController {
         Integer type = CommentTypeEnum.Question.getType();
         List<CommentDTO> list = commentService.listByTargetId(id, type);
         questionService.incView(id);
+        List<QuestionDTO> questionDTOS = questionService.queryByTag(questionDTO);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comment",list);
+        model.addAttribute("tags",questionDTOS);
         return "question";
     }
 }

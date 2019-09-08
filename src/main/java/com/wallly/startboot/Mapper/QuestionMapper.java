@@ -27,6 +27,9 @@ public interface QuestionMapper {
     @Select("select * from question where creator = #{id} limit #{offset},#{size}")
     List<Question> listProfile(@Param(value = "id") Integer id, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
 
+    @Select("select * from question where id != #{id} and tag REGEXP #{tag}")
+    List<Question> queryByTag(Question question);
+
     @Update("update question set title = #{title},description = #{description},tag = #{tag} where id = #{id}")
     void update(Question question);
 
