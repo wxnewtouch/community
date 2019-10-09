@@ -3,8 +3,10 @@ package com.wallly.startboot.controller;
 import com.wallly.startboot.Mapper.QuestionMapper;
 import com.wallly.startboot.Model.Question;
 import com.wallly.startboot.Model.User;
+import com.wallly.startboot.cache.TagCache;
 import com.wallly.startboot.dto.QuestionDTO;
 import com.wallly.startboot.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.get());
         if (title == null || title.equals("")){
             model.addAttribute("error","标题不能为空");
             return "publish";
@@ -42,6 +45,10 @@ public class PublishController {
             return "publish";
         }if (tag == null || tag.equals("")){
             model.addAttribute("error","标签不能为空");
+            return "publish";
+        }
+        if (StringUtils.isNotBlank(TagCache.checkedInvalid(tag))){
+            model.addAttribute("error","输入非法标签 :"+TagCache.checkedInvalid(tag));
             return "publish";
         }
         User user = (User)request.getSession().getAttribute("githubUser");
@@ -60,7 +67,8 @@ public class PublishController {
     }
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -72,6 +80,7 @@ public class PublishController {
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 }

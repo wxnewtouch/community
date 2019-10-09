@@ -1,73 +1,110 @@
-.main{
-    margin:30px;
-    background-color:white;
+.main {
+    margin: 30px;
+    background-color: white;
 }
-body{
-    background-color:#efefef;
+
+body {
+    background-color: #efefef;
 }
-.btn-publish{
+
+.btn-publish {
     float: right;
     margin-bottom: 15px;
 }
-.media-object{
+
+.media-object {
     width: 35px;
     height: 35px;
 }
-.text-desc{
+
+.text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
-.section-style{
+
+.section-style {
     margin: 15px;
 }
-.community-menu{
+
+.community-menu {
     color: #999;
     font-size: 13px;
     margin: 5px;
 }
-.jumbotron{
+
+.jumbotron {
     margin: 45px;
 }
-.comment{
+
+.comment {
     margin: 10px 0;
 }
-.media-body{
+
+.media-body {
     padding: 7px;
 }
-.btn-comment{
+
+.btn-comment {
     float: right;
 }
-.margin_setting{
+
+.margin_setting {
     margin-top: 5px;
 }
-.menu .icon{
+
+.menu .icon {
     padding: 0 6px;
     font-size: 15px;
     cursor: pointer;
 }
-.menu .active{
-    color:#499ef3;
+
+.menu .active {
+    color: #499ef3;
 }
-.border-set{
+
+.border-set {
     border: 1px solid #eee;
     padding-top: 14px;
     margin-top: 15px;
     border-radius: 16px;
 }
-.tag-distance{
+
+.tag-distance {
     margin-right: 10px;
 }
-.menu{
-    color:#999;
+
+.menu {
+    color: #999;
 }
-.menu .icon:hover{
+
+.menu .icon:hover {
     color: #499ef3;
 }
-.comment-pad{
+
+.publish-tag-tap {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.publish-tag-tap .tab-pane {
+    margin-top: 10px;
+}
+
+.publish-tag-tap .tab-pane .label-info {
+    margin-right: 10px;
+}
+
+.publish-tag-tap .label-info .glyphicon-tags {
+    margin: 10px;
+}
+
+.comment-pad {
     border-bottom: 1px solid #eee;
     margin-bottom: 10px;
 }
-.btn-comment{
+
+.btn-comment {
     margin: 15px 0px;
 }
