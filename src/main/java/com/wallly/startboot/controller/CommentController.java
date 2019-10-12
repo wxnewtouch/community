@@ -36,7 +36,7 @@ public class CommentController {
         comment.setGmtModified(comment.getGmtCreate());
         //这里有问题，这里的值获取到的永远是1，所以永远不对。
         comment.setCommentator(user.getId());
-        commentService.insert(comment);
+        commentService.insert(comment,user);
         return ResultDTO.okOf();
     }
     @ResponseBody

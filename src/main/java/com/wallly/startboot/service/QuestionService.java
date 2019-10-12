@@ -8,7 +8,6 @@ import com.wallly.startboot.dto.PaginationDTO;
 import com.wallly.startboot.dto.QuestionDTO;
 import com.wallly.startboot.exception.CustomizeErrorCode;
 import com.wallly.startboot.exception.CustomizeException;
-import com.wallly.startboot.exception.ICustomizeErrorCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
-        paginationDTO.setQuestionDTOS(questionDTOS);
+        paginationDTO.setData(questionDTOS);
         return paginationDTO;
     }
 
@@ -129,7 +128,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
-        paginationDTO.setQuestionDTOS(questionDTOS);
+        paginationDTO.setData(questionDTOS);
         return paginationDTO;
     }
 
