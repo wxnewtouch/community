@@ -54,6 +54,7 @@ public class NotificationService {
         for (Notification notification : notificationList) {
             NotificationDTO notificationDTO = new NotificationDTO();
             BeanUtils.copyProperties(notification, notificationDTO);
+            notificationDTO.setOuterid(notification.getOuterId());
             notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
             notificationDTOS.add(notificationDTO);
         }
@@ -62,7 +63,7 @@ public class NotificationService {
     }
 
     public Integer unreadCount(Integer id) {
-        return notificationMapper.countByAccountId(id);
+        return notificationMapper.countUnread(id);
     }
 
     public NotificationDTO read(Integer id, User user) {

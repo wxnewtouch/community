@@ -2,6 +2,7 @@ package com.wallly.startboot.interceptor;
 
 import com.wallly.startboot.Mapper.UserMapper;
 import com.wallly.startboot.Model.User;
+import com.wallly.startboot.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,6 +20,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -31,6 +34,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                     user = userMapper.findByToken(cookie.getValue());
                     if (user != null) {
                         request.getSession().setAttribute("githubUser", user);
+                        request.getSession().setAttribute("underCount",notificationService.unreadCount(user.getId()));
                     }
                     break;
                 }

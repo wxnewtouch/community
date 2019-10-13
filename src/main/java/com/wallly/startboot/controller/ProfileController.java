@@ -48,7 +48,6 @@ public class ProfileController {
             model.addAttribute("section", "repies");
             model.addAttribute("sectionName", "我的回复");
             model.addAttribute("pagination", pagination);
-            model.addAttribute("unreadCount", notificationService.unreadCount(user.getId()));
         }
         return "profile";
     }

@@ -94,7 +94,7 @@
                    th:class="${section == 'question'} ? 'list-group-item active':'list-group-item'">我的问题</a>
                 <a href="/profile/repies"
                    th:class="${section == 'repies'} ? 'list-group-item active':'list-group-item'">
-                    我的回复<span class="badge" th:text="${unreadCount}"></span>
+                    我的回复<span class="badge" th:text="${session.underCount}"></span>
                 </a>
             </div>
         </div>
