@@ -32,6 +32,7 @@ public class QuestionController {
         model.addAttribute("question",questionDTO);
         model.addAttribute("comment",list);
         model.addAttribute("tags",questionDTOS);
+
         return "question";
     }
 }

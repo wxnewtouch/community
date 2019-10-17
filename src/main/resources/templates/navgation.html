@@ -31,7 +31,7 @@
                     <li th:if="${session.githubUser != null}">
                         <a href="/publish">发布</a>
                     </li>
-                    <li><a href="/profile/repies">通知<span class="badge" th:text="${session.underCount}"></span></a></li>
+                    <li><a href="/profile/repies">通知<span class="badge" th:text="${session.githubUser != null ? session.underCount : ''}"></span></a></li>
                     <li class="dropdown" th:if="${session.githubUser != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">

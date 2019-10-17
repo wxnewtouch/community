@@ -89,11 +89,11 @@
             <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-circle" th:src="${session.user != null ? session.user.getAvatarUrl() : '/images/默认用户.png' }">
+                        <img class="media-object img-circle" th:src="${session.githubUser != null ? session.githubUser.getAvatarUrl() : '/images/默认用户.png' }">
                     </a>
                 </div>
                 <div class="media-body">
-                    <span th:text="${session.user != null ? session.user.name : '默认用户'}"></span>
+                    <span th:text="${session.githubUser != null ? session.githubUser.name : '默认用户'}"></span>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
@@ -131,6 +131,7 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </div>
 
 </body>

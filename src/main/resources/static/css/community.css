@@ -108,3 +108,9 @@ body {
 .btn-comment {
     margin: 15px 0px;
 }
+
+.footer {
+    padding: 10px 25%;
+    color: #666;
+
+}
