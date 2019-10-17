@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li th:each="pages : ${pagination.pages}" th:class="${pagination.page  == pages } ? 'active':'' ">
-                        <a th:href="@{/(page=${pages})}" th:text="${pages}"></a>
+                        <a th:href="@{/(page=${pages},search=${search})}" th:text="${pages}"></a>
                     </li>
                     <li th:if="${pagination.getShowNext()}">
                         <a th:href="@{/(page=${pagination.page + 1})}" aria-label="Previous">

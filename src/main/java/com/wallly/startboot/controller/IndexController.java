@@ -2,6 +2,7 @@ package com.wallly.startboot.controller;
 
 import com.wallly.startboot.dto.PaginationDTO;
 import com.wallly.startboot.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +19,17 @@ public class IndexController {
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "search", required = false) String search) {
         /**
          * 在返回index之前需要将question的数据查询出来
          */
-        PaginationDTO pagination = questionService.findByAll(page, size);
+        if (StringUtils.equals(search,"")){
+            search = null;
+        }
+        PaginationDTO pagination = questionService.findByAll(search, page, size);
         model.addAttribute("pagination", pagination);
+        model.addAttribute("search", search);
         return "index";
     }
 }

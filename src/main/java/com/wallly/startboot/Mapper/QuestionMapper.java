@@ -9,8 +9,19 @@ import java.util.List;
 @Mapper
 @Component
 public interface QuestionMapper {
-    @Select("select count(1) from question")
-    Integer count();
+    @Select({
+            "<script>",
+            "select",
+            "count(1)",
+            "from question",
+            "<where>",
+            "<if test='search != null '>",
+            "and title regexp #{search}",
+            "</if>",
+            "</where>",
+            "</script>"
+    })
+    Integer count(@Param(value = "search") String search);
 
     @Select("select count(1) from question where creator = #{id}")
     Integer countByAccountId(@Param(value = "id") Integer id);
@@ -21,8 +32,21 @@ public interface QuestionMapper {
     @Select("select * from question where id = #{id}")
     Question findById(Integer id);
 
-    @Select("select * from question limit #{offset},#{size}")
-    List<Question> list(@Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
+    @Select({
+            "<script>",
+            "select",
+            "*",
+            "from question",
+            "<where>",
+            "<if test='search != null'>",
+            "and title regexp #{search}",
+            "</if>",
+            "</where>",
+            "order by gmt_create desc",
+            "limit #{offset},#{size}",
+            "</script>"
+    })
+    List<Question> list(@Param(value = "search") String search, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
 
     @Select("select * from question where creator = #{id} limit #{offset},#{size}")
     List<Question> listProfile(@Param(value = "id") Integer id, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);

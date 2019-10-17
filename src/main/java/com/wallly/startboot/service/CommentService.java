@@ -83,6 +83,9 @@ public class CommentService {
     }
 
     private void createNotify(Comment comment, Integer receiver, String notifierName, String outerTitle, NotificationTypeEnum replyComment, Integer outerId) {
+        if (receiver == comment.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         //获取当前评论人的id

@@ -40,9 +40,13 @@ public class QuestionService {
         }
     }
 
-    public PaginationDTO findByAll(Integer page, Integer size) {
+    public PaginationDTO findByAll(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)){
+            String[] split = StringUtils.split(search, " ");
+            String searchFor = Arrays.stream(split).collect(Collectors.joining("|"));
+        }
         PaginationDTO paginationDTO = new PaginationDTO();
-        paginationDTO.setTotalCount(questionMapper.count());
+        paginationDTO.setTotalCount(questionMapper.count(search));
         /**
          * 现在totalPage已经算出来了
          */
@@ -63,7 +67,7 @@ public class QuestionService {
         paginationDTO.setpagination(size,page);
 
         Integer offset = size * (page - 1);
-        List<Question> questionList = questionMapper.list(offset, size);
+        List<Question> questionList = questionMapper.list(search,offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
 
         for (Question question : questionList) {
